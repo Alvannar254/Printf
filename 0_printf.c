@@ -1,14 +1,12 @@
 #include "main.h"
 
 /**
- * _printf -Writes a single character to stdout and increments the count..
- * @ch: The character to write.
-
+ * _printf -Writes a single character to stdout and increments the count.
+ * @ch: The character to writ
  *
+ *@count: Pointer to the count ot characters printed
  * Return: The number of characters printed.
  */
-
-
 
 void write_char(char ch, int *count)
 {
@@ -41,34 +39,29 @@ int _printf(const char *format, ...)
 			{
 				case 'c':
 					ch = va_arg(args, int);
-					write(1, &ch, 1);
-					count++;
+					write_char(ch, &count);
 					break;
 				case 's':
 					str = va_arg(args, char *);
 					while (*str)
 					{
-						write(1, str, 1);
+						write_char(*str, &count);
 						str++;
-						count++;
 					}
+					count++;
 					break;
 				case '%':
-					write(1, "%", 1);
-						count++;
+					write_char('%', &count);
 						break;
 				default:
-						write(1, "%", 1);
-						count++;
-						write(1, &(*format), 1);
-						count++;
+						write_char('%', &count);
+						write_char(*format, &count);
 						break;
 			}
 		}
 		else
 		{
-			write(1, &(*format), 1);
-			count++;
+			write_char(*format, &count);
 		}
 		format++;
 	}
