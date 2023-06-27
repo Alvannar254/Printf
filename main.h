@@ -9,6 +9,7 @@ int print_char(va_list args);
 int print_str(va_list args);
 int print_format(char format, va_list args);
 int _print_int(int n);
+int _print_binary(unsigned int n);
 
 #endif /* PRINT_FUNCTIONS_H */
 

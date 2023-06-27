@@ -13,6 +13,8 @@ int main(void)
 	_printf("Percent:[%%]\n");
 	_printf("Integer:[%d]\n", 1024);
 	_printf("Integer:[%i]\n", -1024);
+	_printf("Binary:[%b]\n", 98);
+	_printf("Binary:[%b]\n", 255);
 	return (0);
 }
 
