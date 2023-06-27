@@ -1,6 +1,22 @@
 #include "main.h"
 
 /**
+ * _printf -Writes a single character to stdout and increments the count..
+ * @ch: The character to write.
+
+ *
+ * Return: The number of characters printed.
+ */
+
+
+
+void write_char(char ch, int *count)
+{
+	write(1, &ch, 1);
+	(*count)++;
+}
+
+/**
  * _printf - Produces output according to a format.
  * @format: A character string containing directives.
  *
