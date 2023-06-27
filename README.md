@@ -1,62 +1,31 @@
-Printf group project 
+0x11. C - printf 
 
-#ifndef MAIN_H
-#define MAIN_H
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
+Project by Alvannar and Lydia Andenga.
 
-int _printf(const char *format, ...);
+Requirements
+General
+Allowed editors: vi, vim, emacs
+All your files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89
+All your files should end with a new line
+A README.md file, at the root of the folder of the project is mandatory
+Your code should use the Betty style. It will be checked using betty-style.pl and betty-doc.pl
+You are not allowed to use global variables
+No more than 5 functions per file
+In the following examples, the main.c files are shown as examples. You can use them to test your functions, but you don’t have to push them to your repo (if you do we won’t take them into account). We will use our own main.c files at compilation. Our main.c files might be different from the one shown in the examples
+The prototypes of all your functions should be included in your header file called main.h
+Don’t forget to push your header file
+All your header files should be include guarded
+Note that we will not provide the _putchar function for this project
+GitHub
+There should be one project repository per group. The other members do not fork or clone the project to ensure only one of the team has the repository in their github account otherwise you risk scoring 0%
 
-
-int print_char(va_list types, char buffer[],int flags, int width, int precision, int size);
-
-int print_pre(const char *format, int *i, va_list list);
-
-/************************* PRINT A STRING *************************/
-
-int print_string(va_list types);
-
-/************************* PRINT PERCENT SIGN *************************/
-
-int print_percent(va_list types);
-
-/************************* PRINT INT *************************/
-
-int print_int(va_list types);
-
-/************************* PRINT BINARY *************************/
-
-int print_binary(va_list types);
-
-va_start(args, print_functions);
-
-/************************* PRINT UNSIGNED NUMBER *************************/
-int print_unsigned(va_list types);
-
-/************* PRINT UNSIGNED NUMBER IN OCTAL  ****************/
-int print_octal(va_list types);
-
-/************** PRINT UNSIGNED NUMBER IN HEXADECIMAL **************/
-int print_hexadecimal(va_list types);
-
-/************* PRINT UNSIGNED NUMBER IN UPPER HEXADECIMAL **************/
-int print_hexa_upper(va_list types);
-
-
-#define BUFF_SIZE 1024
-
-/* Function declarations */
-int print_custom_pointer(va_list types);
-int print_custom_non_printable(va_list types);
-int print_custom_reverse(va_list types);
-int print_custom_rot13string(va_list types);
-
-/* Helper function declarations */
-int is_custom_printable(char c);
-int append_custom_hexa_code(char c, char buffer[], int index);
-int write_custom_pointer(char buffer[], int index, int length);
-
-#endif /* PRINT_FUNCTIONS_H */
-
+More Info
+Authorized functions and macros
+write (man 2 write)
+malloc (man 3 malloc)
+free (man 3 free)
+va_start (man 3 va_start)
+va_end (man 3 va_end)
+va_copy (man 3 va_copy)
+va_arg (man 3 va_arg)
 
