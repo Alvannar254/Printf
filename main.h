@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+//Task 1
+
 int _printf(const char *format, ...);
 void print_number(int n, int *count);
 
