@@ -1,17 +1,32 @@
 #include "main.h"
 
 /**
- * _printf -Writes a single character to stdout and increments the count.
- * @ch: The character to writ
- *
- *@count: Pointer to the count ot characters printed
- * Return: The number of characters printed.
+ * print_c - prints character c
+ * @c: the character to print
+ * 
+ * Return: Number of characters printed
  */
-
-void write_char(char ch, int *count)
+int print_c(char c)
 {
-	write(1, &ch, 1);
-	(*count)++;
+	return (write(1, &c, 1));
+}
+
+/**
+ * print_s - prints string s
+ * @s: the string to print
+ * 
+ * Return: Number of characters printed
+ */
+int print_s(char *s)
+{
+	int count = 0;
+
+	while (*s)
+	{
+		count += print_c(*s);
+		s++;
+	}
+	return (count);
 }
 
 /**
@@ -25,8 +40,6 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	int count = 0;
-	char ch;
-	char *str;
 
 	va_start(args, format);
 
@@ -38,30 +51,23 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 'c':
-					ch = va_arg(args, int);
-					write_char(ch, &count);
+					count += print_c(va_arg(args, int));
 					break;
 				case 's':
-					str = va_arg(args, char *);
-					while (*str)
-					{
-						write_char(*str, &count);
-						str++;
-					}
-					count++;
+					count += print_s(va_arg(args, char *));
 					break;
 				case '%':
-					write_char('%', &count);
-						break;
+					count += print_c('%');
+					break;
 				default:
-						write_char('%', &count);
-						write_char(*format, &count);
-						break;
+					count += print_c('%');
+					count += print_c(*format);
+					break;
 			}
 		}
 		else
 		{
-			write_char(*format, &count);
+			count += print_c(*format);
 		}
 		format++;
 	}
