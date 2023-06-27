@@ -7,8 +7,9 @@
 //Task 1
 
 int _printf(const char *format, ...);
-int print_c(char c);
-int print_s(char *s);
+int print_char(va_list args);
+int print_str(va_list args);
+int print_format(char format, va_list args);
 void print_number(int n, int *count);
 
 #endif /* PRINT_FUNCTIONS_H */

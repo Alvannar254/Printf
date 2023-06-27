@@ -1,41 +1,64 @@
 #include "main.h"
 
 /**
- * print_c - prints character c
- * @c: the character to print
- *
- * Return: Number of characters printed
+ * print_char - Prints a character.
+ * @args: A va_list of arguments.
+ * Return: Always 1 (the number of printed characters).
  */
-int print_c(char c)
+int print_char(va_list args)
 {
-	return (write(1, &c, 1));
+	char ch = va_arg(args, int);
+
+	return (write(1, &ch, 1));
 }
 
 /**
- * print_s - prints string s
- * @s: the string to print
- *
- * Return: Number of characters printed
+ * print_str - Prints a string.
+ * @args: A va_list of arguments.
+ * Return: The number of printed characters.
  */
-int print_s(char *s)
+int print_str(va_list args)
 {
+	char *str = va_arg(args, char *);
 	int count = 0;
 
-	while (*s)
+	while (*str)
 	{
-		count += print_c(*s);
-		s++;
+		write(1, str++, 1);
+		count++;
 	}
 	return (count);
 }
 
 /**
+ * print_format - Prints characters according to the format.
+ * @format: The conversion specifier.
+ * @args: A va_list of arguments.
+ * Return: The number of printed characters.
+ */
+int print_format(char format, va_list args)
+{
+	switch (format)
+	{
+		case 'c':
+			return (print_char(args));
+		case 's':
+			return (print_str(args));
+		case '%':
+			write(1, "%", 1);
+			return (1);
+		default:
+			write(1, "%", 1);
+			write(1, &format, 1);
+			return (2);
+	}
+}
+
+/**
  * _printf - Produces output according to a format.
  * @format: A character string containing directives.
- *
  * Return: The number of characters printed.
  */
-
 int _printf(const char *format, ...)
 {
 	va_list args;
@@ -48,26 +71,12 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			switch (*format)
-			{
-				case 'c':
-					count += print_c(va_arg(args, int));
-					break;
-				case 's':
-					count += print_s(va_arg(args, char *));
-					break;
-				case '%':
-					count += print_c('%');
-					break;
-				default:
-					count += print_c('%');
-					count += print_c(*format);
-					break;
-			}
+			count += print_format(*format, args);
 		}
 		else
 		{
-			count += print_c(*format);
+			write(1, format, 1);
+			count++;
 		}
 		format++;
 	}
@@ -76,3 +85,4 @@ int _printf(const char *format, ...)
 
 	return (count);
 }
+
