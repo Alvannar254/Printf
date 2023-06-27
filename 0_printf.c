@@ -3,7 +3,7 @@
 /**
  * print_c - prints character c
  * @c: the character to print
- * 
+ *
  * Return: Number of characters printed
  */
 int print_c(char c)
@@ -14,7 +14,7 @@ int print_c(char c)
 /**
  * print_s - prints string s
  * @s: the string to print
- * 
+ *
  * Return: Number of characters printed
  */
 int print_s(char *s)
