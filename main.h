@@ -9,7 +9,8 @@ int _printf(const char *format, ...);
 int print_char(va_list args);
 int print_str(va_list args);
 int print_format(char format, va_list args);
-void print_number(int n, int *count);
+int _print_int(int n);
+
 
 #endif /* PRINT_FUNCTIONS_H */
 
