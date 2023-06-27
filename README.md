@@ -1,6 +1,6 @@
 0x11. C - printf
 
-Group project by Lydia Andenga and Alvin Nganga
+Group project by Lydia Andenga and Alvin Nganga.
 
 Requirements
 General
