@@ -1,37 +1,8 @@
 #include "main.h"
 
 /**
- * _print_int - Prints an integer.
- * @n: The integer to be printed.
- *
- * Return: The number of digits printed.
- */
-int _print_int(int n)
-{
-	int count = 0;
-	char c;
-
-	if (n < 0)
-	{
-		write(1, "-", 1);
-		count++;
-		n = -n;
-	}
-
-	if (n / 10)
-		count += _print_int(n / 10);
-
-	c = (n % 10) + '0';
-	write(1, &c, 1);
-	count++;
-
-	return (count);
-}
-
-/**
  * _printf - Produces output according to a format.
  * @format: A character string containing directives.
- *
  * Return: The number of characters printed.
  */
 int _printf(const char *format, ...)
@@ -41,9 +12,9 @@ int _printf(const char *format, ...)
 	char ch;
 	char *str;
 	int d;
+	unsigned int u;
 
 	va_start(args, format);
-
 	while (*format)
 	{
 		if (*format == '%')
@@ -60,8 +31,7 @@ int _printf(const char *format, ...)
 					str = va_arg(args, char *);
 					while (*str)
 					{
-						write(1, str, 1);
-						str++;
+						write(1, str++, 1);
 						count++;
 					}
 					break;
@@ -73,6 +43,26 @@ int _printf(const char *format, ...)
 				case 'i':
 					d = va_arg(args, int);
 					count += _print_int(d);
+					break;
+				case 'b':
+					u = va_arg(args, unsigned int);
+					count += _print_binary(u);
+					break;
+				case 'u':
+					u = va_arg(args, unsigned int);
+					count += _print_uint(u);
+					break;
+				case 'o':
+					u = va_arg(args, unsigned int);
+					count += _print_octal(u);
+					break;
+				case 'x':
+					u = va_arg(args, unsigned int);
+					count += _print_hex(u, 0);
+					break;
+				case 'X':
+					u = va_arg(args, unsigned int);
+					count += _print_hex(u, 1);
 					break;
 				default:
 					write(1, "%", 1);
@@ -89,9 +79,9 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
-
 	va_end(args);
 
 	return (count);
 }
+
 
