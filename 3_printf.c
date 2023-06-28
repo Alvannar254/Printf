@@ -1,87 +1,131 @@
 #include "main.h"
 
 /**
- * _printf - Produces output according to a format.
- * @format: A character string containing directives.
+ * print_u - Prints an unsigned integer.
+ * @args: A va_list of arguments.
  * Return: The number of characters printed.
  */
-int _printf(const char *format, ...)
+int print_u(va_list args)
 {
-	va_list args;
-	int count = 0;
-	char ch;
+	unsigned int num = va_arg(args, unsigned int);
+	unsigned int num_copy = num, i = 1, len = 0;
 	char *str;
-	int d;
-	unsigned int u;
 
-	va_start(args, format);
-	while (*format)
+	if (num == 0)
 	{
-		if (*format == '%')
-		{
-			format++;
-			switch (*format)
-			{
-				case 'c':
-					ch = va_arg(args, int);
-					write(1, &ch, 1);
-					count++;
-					break;
-				case 's':
-					str = va_arg(args, char *);
-					while (*str)
-					{
-						write(1, str++, 1);
-						count++;
-					}
-					break;
-				case '%':
-					write(1, "%", 1);
-					count++;
-					break;
-				case 'd':
-				case 'i':
-					d = va_arg(args, int);
-					count += _print_int(d);
-					break;
-				case 'b':
-					u = va_arg(args, unsigned int);
-					count += _print_binary(u);
-					break;
-				case 'u':
-					u = va_arg(args, unsigned int);
-					count += _print_uint(u);
-					break;
-				case 'o':
-					u = va_arg(args, unsigned int);
-					count += _print_octal(u);
-					break;
-				case 'x':
-					u = va_arg(args, unsigned int);
-					count += _print_hex(u, 0);
-					break;
-				case 'X':
-					u = va_arg(args, unsigned int);
-					count += _print_hex(u, 1);
-					break;
-				default:
-					write(1, "%", 1);
-					count++;
-					write(1, &(*format), 1);
-					count++;
-					break;
-			}
-		}
-		else
-		{
-			write(1, &(*format), 1);
-			count++;
-		}
-		format++;
+		write(1, "0", 1);
+		return (1);
 	}
-	va_end(args);
 
-	return (count);
+	while (num_copy /= 10)
+		i *= 10;
+
+	str = malloc(sizeof(char) * i);
+	if (!str)
+		return (0);
+
+	while (i)
+	{
+		*str++ = num / i + '0';
+		num %= i;
+		i /= 10;
+		len++;
+	}
+
+	write(1, str - len, len);
+	free(str - len);
+
+	return (len);
 }
 
+/**
+ * print_o - Prints an unsigned integer in octal base.
+ * @args: A va_list of arguments.
+ * Return: The number of characters printed.
+ */
+int print_o(va_list args)
+{
+	unsigned int num = va_arg(args, unsigned int);
+	int i = 0, len = 0;
+	char str[12];
+
+	if (num == 0)
+	{
+		write(1, "0", 1);
+		return (1);
+	}
+
+	while (num)
+	{
+		str[i++] = (num % 8) + '0';
+		num /= 8;
+	}
+
+	len = i;
+	while (i--)
+
+		write(1, &str[i], 1);
+
+	return (len);
+}
+
+/**
+ * print_x - Prints an unsigned integer in hexadecimal (lowercase).
+ * @args: A va_list of arguments.
+ * Return: The number of characters printed.
+ */
+int print_x(va_list args)
+{
+	unsigned int num = va_arg(args, unsigned int);
+	int i = 0, len = 0;
+	char str[9];
+
+	if (num == 0)
+	{
+		write(1, "0", 1);
+		return (1);
+	}
+
+	while (num)
+	{
+		str[i++] = "0123456789abcdef"[num % 16];
+		num /= 16;
+	}
+
+	len = i;
+	while (i--)
+		write(1, &str[i], 1);
+
+	return (len);
+}
+
+/**
+ * print_X - Prints an unsigned integer in hexadecimal (uppercase).
+ * @args: A va_list of arguments.
+ * Return: The number of characters printed.
+ */
+int print_X(va_list args)
+{
+	unsigned int num = va_arg(args, unsigned int);
+	int i = 0, len = 0;
+	char str[9];
+
+	if (num == 0)
+	{
+		write(1, "0", 1);
+		return (1);
+	}
+
+	while (num)
+	{
+		str[i++] = "0123456789ABCDEF"[num % 16];
+		num /= 16;
+	}
+
+	len = i;
+	while (i--)
+		write(1, &str[i], 1);
+
+	return (len);
+}
 
